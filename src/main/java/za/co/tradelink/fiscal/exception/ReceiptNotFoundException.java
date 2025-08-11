@@ -1,4 +1,3 @@
-// ReceiptNotFoundException.java
 package za.co.tradelink.fiscal.exception;
 
 public class ReceiptNotFoundException extends RuntimeException {

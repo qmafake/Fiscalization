@@ -35,19 +35,19 @@ public class ReceiptService {
         return receiptRepository.findByStatusAndDateRange(status, fromDate, toDate);
     }
     
-    private Receipt mapToReceipt(PosReceiptDto dto) {
+    private Receipt mapToReceipt(PosReceiptDto posReceiptDto) {
         Receipt receipt = new Receipt();
-        receipt.setReceiptNumber(dto.getReceiptNumber());
-        receipt.setTimestamp(dto.getTimestamp());
-        receipt.setCashierId(dto.getCashierId());
-        receipt.setBranchCode(dto.getBranchCode());
+        receipt.setReceiptNumber(posReceiptDto.getReceiptNumber());
+        receipt.setTimestamp(posReceiptDto.getTimestamp());
+        receipt.setCashierId(posReceiptDto.getCashierId());
+        receipt.setBranchCode(posReceiptDto.getBranchCode());
         
-        if (dto.getBuyer() != null) {
-            receipt.setBuyerTin(dto.getBuyer().getTin());
-            receipt.setBuyerName(dto.getBuyer().getName());
+        if (posReceiptDto.getBuyer() != null) {
+            receipt.setBuyerTin(posReceiptDto.getBuyer().getTin());
+            receipt.setBuyerName(posReceiptDto.getBuyer().getName());
         }
 
-        receipt.setItems(dto.getItems().stream()
+        receipt.setItems(posReceiptDto.getItems().stream()
                 .map(item -> new ReceiptItem(
                         item.getName(),
                         item.getQty(),
@@ -55,8 +55,8 @@ public class ReceiptService {
                         item.getVat()))
                 .toList());
 
-        receipt.setTotal(dto.getTotal());
-        receipt.setCurrency(dto.getCurrency());
+        receipt.setTotal(posReceiptDto.getTotal());
+        receipt.setCurrency(posReceiptDto.getCurrency());
         return receipt;
     }
 }

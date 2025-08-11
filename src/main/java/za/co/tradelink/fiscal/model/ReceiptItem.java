@@ -14,6 +14,9 @@ public class ReceiptItem implements Serializable {
     private BigDecimal unitPrice;
     private BigDecimal vat;
 
+    public ReceiptItem() {
+    }
+
     public ReceiptItem(String name, int qty, BigDecimal unitPrice, BigDecimal vat) {
         this.name = name;
         this.qty = qty;

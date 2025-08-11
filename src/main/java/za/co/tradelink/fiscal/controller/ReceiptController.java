@@ -1,5 +1,6 @@
 package za.co.tradelink.fiscal.controller;
 
+import jakarta.validation.Valid;
 import za.co.tradelink.fiscal.dto.FiscalReceiptDto;
 import za.co.tradelink.fiscal.dto.PosReceiptDto;
 import za.co.tradelink.fiscal.model.Receipt;
@@ -23,7 +24,7 @@ public class ReceiptController {
     private final FiscalService fiscalService;
     
     @PostMapping
-    public ResponseEntity<Receipt> createReceipt(@RequestBody PosReceiptDto posReceiptDto) {
+    public ResponseEntity<Receipt> createReceipt(@Valid @RequestBody PosReceiptDto posReceiptDto) {
         Receipt receipt = receiptService.createReceipt(posReceiptDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(receipt);
     }
