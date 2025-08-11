@@ -1,4 +1,4 @@
-package za.co.tradelink.fiscalization;
+package za.co.tradelink.fiscal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
