@@ -10,4 +10,6 @@ class FiscalizationApplicationTests {
 	void contextLoads() {
 	}
 
+
+
 }

@@ -31,28 +31,16 @@ public class ReceiptController {
     @PostMapping
     public ResponseEntity<Receipt> createReceipt(@Valid @RequestBody PosReceiptDto posReceiptDto) {
 
-        logger.info("Incoming receipt for to creation: {}", posReceiptDto);
+        logger.info("Create receipt: {}", posReceiptDto);
 
         Receipt receipt = receiptService.createReceipt(posReceiptDto);
 
-        logger.info("Receipt Number: {}, created with Id: {}, status: {}", receipt.getReceiptNumber(), receipt.getId(),
+        logger.info("Created - Receipt Number: {}, Id: {}, status: {}", receipt.getReceiptNumber(), receipt.getId(),
                 receipt.getStatus() );
 
         return ResponseEntity.status(HttpStatus.CREATED).body(receipt);
     }
 
-    /* //TODO: -ve
-    @PostMapping
-    public ResponseEntity<Object> createReceipt(@Valid @RequestBody PosReceiptDto posReceiptDto) {
-
-        Receipt receipt = receiptService.createReceipt(posReceiptDto);
-
-        logger.info("Created receipt number: {}", receipt.getReceiptNumber());
-
-        return new ResponseEntity<>(receipt.getReceiptNumber() + " created successfully", HttpStatus.OK);
-
-    }
-    */
     @GetMapping("/{id}")
     public ResponseEntity<Receipt> getReceiptById(@PathVariable Long id) {
 

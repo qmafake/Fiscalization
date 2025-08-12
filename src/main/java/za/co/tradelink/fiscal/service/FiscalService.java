@@ -4,6 +4,7 @@ package za.co.tradelink.fiscal.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import za.co.tradelink.fiscal.dto.FiscalReceiptDto;
+import za.co.tradelink.fiscal.exception.FiscalizationException;
 import za.co.tradelink.fiscal.exception.ReceiptNotFoundException;
 import za.co.tradelink.fiscal.model.Receipt;
 import za.co.tradelink.fiscal.model.ReceiptStatus;
@@ -33,7 +34,7 @@ public class FiscalService {
         //TODO: See what to do here to determine successfull fiscalization, also check firefox
         // Simulate fiscalization - in a real system this would call an external service
         boolean fiscalizationSuccess = simulateFiscalization();
-        
+
         if (fiscalizationSuccess) {
             receipt.setStatus(ReceiptStatus.FISCALIZED);
             receipt.setFiscalCode(UUID.randomUUID().toString());
@@ -46,12 +47,18 @@ public class FiscalService {
             logger.error("Failed fiscalization for receipt number {} ", receipt.getReceiptNumber());
 
             receipt.setStatus(ReceiptStatus.FISCALIZATION_FAILED);
-            throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "Fiscalization failed");
+
+            throw new FiscalizationException(
+                    receipt.getId().toString(),
+                    "FISCAL_500",
+                    "Fiscalization service internal error occurred"
+            );
+
         }
-        
+
         return receiptRepository.save(receipt);
     }
-    
+
     public FiscalReceiptDto mapToFiscalReceiptDto(Receipt receipt) {
 
         logger.info("Receipt to transform to fiscal: {}", receipt);
@@ -70,7 +77,7 @@ public class FiscalService {
                         item.getUnitPrice(),
                         item.getVat()))
                 .toList());
-        
+
         fiscalReceiptDto.setTotalAmount(receipt.getTotal());
         fiscalReceiptDto.setCurrency(receipt.getCurrency());
 
@@ -78,9 +85,9 @@ public class FiscalService {
 
         return fiscalReceiptDto;
     }
-    
+
     private boolean simulateFiscalization() {
         // Simulate random success/failure (80% success rate for demo purposes)
-        return Math.random() > 0.2;
+        return Math.random() > 0.2; //TODO: move success rate to properties file for easy demo adjusting
     }
 }
