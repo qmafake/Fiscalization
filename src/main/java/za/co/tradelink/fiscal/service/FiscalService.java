@@ -1,6 +1,8 @@
 // FiscalService.java
 package za.co.tradelink.fiscal.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import za.co.tradelink.fiscal.dto.FiscalReceiptDto;
 import za.co.tradelink.fiscal.exception.ReceiptNotFoundException;
 import za.co.tradelink.fiscal.model.Receipt;
@@ -18,8 +20,10 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class FiscalService {
+
     private final ReceiptRepository receiptRepository;
-    
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Transactional
     public Receipt fiscalizeReceipt(Long receiptId) {
 
@@ -34,7 +38,13 @@ public class FiscalService {
             receipt.setStatus(ReceiptStatus.FISCALIZED);
             receipt.setFiscalCode(UUID.randomUUID().toString());
             receipt.setFiscalizedAt(LocalDateTime.now());
+
+            logger.info("Fiscalized receipt number {} ", receipt.getReceiptNumber());
+
         } else {
+
+            logger.error("Failed fiscalization for receipt number {} ", receipt.getReceiptNumber());
+
             receipt.setStatus(ReceiptStatus.FISCALIZATION_FAILED);
             throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "Fiscalization failed");
         }
@@ -44,14 +54,16 @@ public class FiscalService {
     
     public FiscalReceiptDto mapToFiscalReceiptDto(Receipt receipt) {
 
-        FiscalReceiptDto dto = new FiscalReceiptDto();
-        dto.setFiscalCode(receipt.getFiscalCode());
-        dto.setReceiptNumber(receipt.getReceiptNumber());
-        dto.setIssueDateTime(receipt.getTimestamp());
-        dto.setBranchTIN(receipt.getBranchCode());
-        dto.setBuyerTIN(receipt.getBuyerTin());
+        logger.info("Receipt to transform to fiscal: {}", receipt);
 
-        dto.setLineItems(receipt.getItems().stream()
+        FiscalReceiptDto fiscalReceiptDto = new FiscalReceiptDto();
+        fiscalReceiptDto.setFiscalCode(receipt.getFiscalCode());
+        fiscalReceiptDto.setReceiptNumber(receipt.getReceiptNumber());
+        fiscalReceiptDto.setIssueDateTime(receipt.getTimestamp());
+        fiscalReceiptDto.setBranchTIN(receipt.getBranchCode());
+        fiscalReceiptDto.setBuyerTIN(receipt.getBuyerTin());
+
+        fiscalReceiptDto.setLineItems(receipt.getItems().stream()
                 .map(item -> new FiscalReceiptDto.LineItemDto(
                         item.getName(),
                         item.getQty(),
@@ -59,9 +71,12 @@ public class FiscalService {
                         item.getVat()))
                 .toList());
         
-        dto.setTotalAmount(receipt.getTotal());
-        dto.setCurrency(receipt.getCurrency());
-        return dto;
+        fiscalReceiptDto.setTotalAmount(receipt.getTotal());
+        fiscalReceiptDto.setCurrency(receipt.getCurrency());
+
+        logger.info("Fiscal version of receipt: {}", fiscalReceiptDto);
+
+        return fiscalReceiptDto;
     }
     
     private boolean simulateFiscalization() {

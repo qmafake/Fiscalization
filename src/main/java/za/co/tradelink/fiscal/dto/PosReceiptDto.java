@@ -33,7 +33,6 @@ public class PosReceiptDto {
     @NotNull(message = "Total is required")
     private BigDecimal total;
 
-    //TODO: revisit default or remove comment
     private String currency = "ZAR";
 
     @Data
