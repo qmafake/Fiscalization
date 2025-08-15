@@ -24,7 +24,7 @@ public class Receipt {
     private String buyerName;
     
     @ElementCollection
-    @Embedded //TODO: Impact?
+    @Embedded
     private List<ReceiptItem> items;
     
     private BigDecimal total;
@@ -34,7 +34,7 @@ public class Receipt {
     private ReceiptStatus status;
     
     private String fiscalCode;
-    private LocalDateTime fiscalizedAt; //TODO: neccessary? - are we updating this at fiscalization?
+    private LocalDateTime fiscalizedAt;
 
 }
 

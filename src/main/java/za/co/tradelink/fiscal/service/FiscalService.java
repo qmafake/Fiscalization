@@ -31,7 +31,6 @@ public class FiscalService {
         Receipt receipt = receiptRepository.findById(receiptId)
                 .orElseThrow(() -> new ReceiptNotFoundException("Receipt not found with id: " + receiptId));
 
-        //TODO: See what to do here to determine successfull fiscalization, also check firefox
         // Simulate fiscalization - in a real system this would call an external service
         boolean fiscalizationSuccess = simulateFiscalization();
 
@@ -59,34 +58,7 @@ public class FiscalService {
         return receiptRepository.save(receipt);
     }
 
-    public FiscalReceiptDto mapToFiscalReceiptDto(Receipt receipt) {
-
-        logger.info("Receipt to transform to fiscal: {}", receipt);
-
-        FiscalReceiptDto fiscalReceiptDto = new FiscalReceiptDto();
-        fiscalReceiptDto.setFiscalCode(receipt.getFiscalCode());
-        fiscalReceiptDto.setReceiptNumber(receipt.getReceiptNumber());
-        fiscalReceiptDto.setIssueDateTime(receipt.getTimestamp());
-        fiscalReceiptDto.setBranchTIN(receipt.getBranchCode());
-        fiscalReceiptDto.setBuyerTIN(receipt.getBuyerTin());
-
-        fiscalReceiptDto.setLineItems(receipt.getItems().stream()
-                .map(item -> new FiscalReceiptDto.LineItemDto(
-                        item.getName(),
-                        item.getQty(),
-                        item.getUnitPrice(),
-                        item.getVat()))
-                .toList());
-
-        fiscalReceiptDto.setTotalAmount(receipt.getTotal());
-        fiscalReceiptDto.setCurrency(receipt.getCurrency());
-
-        logger.info("Fiscal version of receipt: {}", fiscalReceiptDto);
-
-        return fiscalReceiptDto;
-    }
-
-    private boolean simulateFiscalization() {
+    public boolean simulateFiscalization() {
         // Simulate random success/failure (80% success rate for demo purposes)
         return Math.random() > 0.2; //TODO: move success rate to properties file for easy demo adjusting
     }

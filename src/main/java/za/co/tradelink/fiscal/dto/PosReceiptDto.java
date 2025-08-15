@@ -23,8 +23,10 @@ public class PosReceiptDto {
     @NotEmpty(message = "CashierI Id is required")
     private String cashierId;
 
+    @NotEmpty
     private String branchCode;
 
+    @NotNull
     private BuyerDto buyer;
 
     @NotNull(message = "Receipt items cannot be null")

@@ -14,22 +14,6 @@
 	<name>fiscalization</name>
 	<description>Fiscalization of Receipts</description>
 
-	<!--	:TODO - remove unused - START -->
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
-	<!--	:TODO - remove unused - END -->
-
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -71,7 +55,6 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>2.1.0-alpha1</version>
 		</dependency>
-
 
 		<!-- Swagger (Optional) TODO: Implement if time allows-->
 		<dependency>
