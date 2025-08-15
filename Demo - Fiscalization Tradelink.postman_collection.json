@@ -1,0 +1,517 @@
+{
+	"info": {
+		"_postman_id": "0eeb95f3-1161-475c-8271-45edf89897cd",
+		"name": "Demo - Fiscalization Tradelink",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10221482"
+	},
+	"item": [
+		{
+			"name": "Create 1st receipt",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Digest username=\"\", realm=\"\", nonce=\"\", uri=\"/service-api/v1/transaction/payment\", response=\"a0d8062262ec5397b68f4e04fa6c9fbd\", opaque=\"\"",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"receiptNumber\": \"RCP-123\",\n  \"timestamp\": \"2025-07-12T22:01:00Z\",\n  \"cashierId\": \"CASH-01\",\n  \"branchCode\": \"BR-001\", \n  \"buyer\": {\n    \"tin\": \"123456789\",\n    \"name\": \"Vusi Mazibuko\"\n  },\n  \"items\": [\n    {\n      \"name\": \"Water\",\n      \"qty\": 2,\n      \"unitPrice\": 15.00,\n      \"vat\": 2.25\n    }\n  ],\n  \"total\": 30.00,\n  \"currency\": \"ZAR\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8181/receipts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"receipts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create 2nd receipt",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Digest username=\"\", realm=\"\", nonce=\"\", uri=\"/service-api/v1/transaction/payment\", response=\"a0d8062262ec5397b68f4e04fa6c9fbd\", opaque=\"\"",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"receiptNumber\": \"RCP-124\",\n  \"timestamp\": \"2025-08-11T22:30:00Z\",\n  \"cashierId\": \"CASH-01\",\n  \"branchCode\": \"BR-001\",\n  \"buyer\": {\n    \"tin\": \"123456790\",\n    \"name\": \"Trevor Noah\"\n  },\n  \"items\": [\n    {\n      \"name\": \"Iwisa\",\n      \"qty\": 1,\n      \"unitPrice\": 20.00,\n      \"vat\": 3.00\n    },\n        {\n      \"name\": \"Spookies\",\n      \"qty\": 2,\n      \"unitPrice\": 10.00,\n      \"vat\": 1.50\n    }\n\n  ],\n  \"total\": 44.50,\n  \"currency\": \"ZAR\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8181/receipts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"receipts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create 3rd receipt",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Digest username=\"\", realm=\"\", nonce=\"\", uri=\"/service-api/v1/transaction/payment\", response=\"a0d8062262ec5397b68f4e04fa6c9fbd\", opaque=\"\"",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"receiptNumber\": \"RCP-125\",\n  \"timestamp\": \"2025-07-12T22:03:00Z\",\n  \"cashierId\": \"CASH-01\",\n  \"branchCode\": \"BR-001\",\n  \"buyer\": {\n    \"tin\": \"123456791\",\n    \"name\": \"James Brown\"\n  },\n  \"items\": [\n    {\n      \"name\": \"Menthos\",\n      \"qty\": 1,\n      \"unitPrice\": 10.00,\n      \"vat\": 1.50\n    }\n  ],\n  \"total\": 10.00,\n  \"currency\": \"ZAR\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8181/receipts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"receipts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Receipt by Id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Digest username=\"\", realm=\"\", nonce=\"\", uri=\"/service-api/v1/transaction/payment\", response=\"a0d8062262ec5397b68f4e04fa6c9fbd\", opaque=\"\"",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"sessionId\": \"{{sessionUUID}}\",\n \"msisdn\": \"27780556661\",\n \"userEntry\": 1\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8181/receipts/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"receipts",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View All Receipts",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Proxy-Authorization",
+						"value": "Digest username=\"\", realm=\"\", nonce=\"\", uri=\"/service-api/v1/transaction/payment\", response=\"a0d8062262ec5397b68f4e04fa6c9fbd\", opaque=\"\"",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8181/receipts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"receipts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View All Receipts by Status",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Proxy-Authorization",
+						"value": "Digest username=\"\", realm=\"\", nonce=\"\", uri=\"/service-api/v1/transaction/payment\", response=\"a0d8062262ec5397b68f4e04fa6c9fbd\", opaque=\"\"",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"sessionId\": \"{{sessionUUID}}\",\n \"msisdn\": \"27780556661\",\n \"userEntry\": 1\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8181/receipts?status=PENDING_FISCALIZATION",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"receipts"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "PENDING_FISCALIZATION"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Receipts by status and date",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Proxy-Authorization",
+						"value": "Digest username=\"\", realm=\"\", nonce=\"\", uri=\"/service-api/v1/transaction/payment\", response=\"a0d8062262ec5397b68f4e04fa6c9fbd\", opaque=\"\"",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"sessionId\": \"{{sessionUUID}}\",\n \"msisdn\": \"27780556661\",\n \"userEntry\": 1\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8181/receipts?status=FISCALIZED&fromDate=2025-08-01T00:00:00Z&toDate=2025-08-12T23:59:59Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"receipts"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "FISCALIZED"
+						},
+						{
+							"key": "fromDate",
+							"value": "2025-08-01T00:00:00Z"
+						},
+						{
+							"key": "toDate",
+							"value": "2025-08-12T23:59:59Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fiscalize 1st receipt",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Digest username=\"\", realm=\"\", nonce=\"\", uri=\"/service-api/v1/transaction/payment\", response=\"a0d8062262ec5397b68f4e04fa6c9fbd\", opaque=\"\"",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"receiptNumber\": \"RCP-123\",\n  \"timestamp\": \"2025-07-11T10:30:00Z\",\n  \"cashierId\": \"CASH-01\",\n  \"branchCode\": \"BR-001\",\n  \"buyer\": {\n    \"tin\": \"123456789\",\n    \"name\": \"Samuel Jackson\"\n  },\n  \"items\": [\n    {\n      \"name\": \"Item A\",\n      \"qty\": 2,\n      \"unitPrice\": 10.00,\n      \"vat\": 1.50\n    }\n  ],\n  \"total\": 18.50,\n  \"currency\": \"ZAR\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8181/receipts/1/fiscalize",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"receipts",
+						"1",
+						"fiscalize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fiscalize 2nd receipt",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Digest username=\"\", realm=\"\", nonce=\"\", uri=\"/service-api/v1/transaction/payment\", response=\"a0d8062262ec5397b68f4e04fa6c9fbd\", opaque=\"\"",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"receiptNumber\": \"RCP-123\",\n  \"timestamp\": \"2025-07-11T10:30:00Z\",\n  \"cashierId\": \"CASH-01\",\n  \"branchCode\": \"BR-001\",\n  \"buyer\": {\n    \"tin\": \"123456789\",\n    \"name\": \"Samuel Jackson\"\n  },\n  \"items\": [\n    {\n      \"name\": \"Item A\",\n      \"qty\": 2,\n      \"unitPrice\": 10.00,\n      \"vat\": 1.50\n    }\n  ],\n  \"total\": 18.50,\n  \"currency\": \"ZAR\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8181/receipts/2/fiscalize",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"receipts",
+						"2",
+						"fiscalize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fiscalize 3rd receipt",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Digest username=\"\", realm=\"\", nonce=\"\", uri=\"/service-api/v1/transaction/payment\", response=\"a0d8062262ec5397b68f4e04fa6c9fbd\", opaque=\"\"",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8181/receipts/3/fiscalize",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"receipts",
+						"3",
+						"fiscalize"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
