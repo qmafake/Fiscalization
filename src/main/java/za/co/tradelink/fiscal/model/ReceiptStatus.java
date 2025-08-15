@@ -1,4 +1,3 @@
-// ReceiptStatus.java
 package za.co.tradelink.fiscal.model;
 
 public enum ReceiptStatus {

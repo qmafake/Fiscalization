@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import za.co.tradelink.fiscal.config.TestConfig;
 import za.co.tradelink.fiscal.dto.FiscalReceiptDto;
 import za.co.tradelink.fiscal.dto.PosReceiptDto;
+import za.co.tradelink.fiscal.mapper.FiscalReceiptMapper;
 import za.co.tradelink.fiscal.model.Receipt;
 import za.co.tradelink.fiscal.model.ReceiptStatus;
 import za.co.tradelink.fiscal.service.FiscalService;
@@ -40,6 +41,9 @@ class ReceiptControllerIntegrationTest {
 
     @Autowired
     private FiscalService fiscalService;
+
+    @Autowired
+    private FiscalReceiptMapper fiscalReceiptMapper;
 
     @Test
     void createReceipt_shouldReturnCreated() throws Exception {
@@ -113,7 +117,7 @@ class ReceiptControllerIntegrationTest {
         fiscalizedReceipt.setFiscalCode(UUID.randomUUID().toString());
 
         when(fiscalService.fiscalizeReceipt(1L)).thenReturn(fiscalizedReceipt);
-        when(fiscalService.mapToFiscalReceiptDto(fiscalizedReceipt))
+        when(fiscalReceiptMapper.mapToFiscalReceiptDto(fiscalizedReceipt))
                 .thenReturn(new FiscalReceiptDto());
 
         // Act & Assert
