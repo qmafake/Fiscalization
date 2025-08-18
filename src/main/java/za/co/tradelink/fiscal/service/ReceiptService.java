@@ -1,4 +1,3 @@
-// ReceiptService.java
 package za.co.tradelink.fiscal.service;
 
 import za.co.tradelink.fiscal.dto.PosReceiptDto;
