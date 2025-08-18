@@ -2,6 +2,7 @@ package za.co.tradelink.fiscal.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,7 +24,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/receipts")
-@AllArgsConstructor
+//@AllArgsConstructor
+//@RequiredArgsConstructor
 public class ReceiptController {
 
     private final ReceiptService receiptService;
@@ -32,6 +34,13 @@ public class ReceiptController {
     private final FiscalReceiptMapper fiscalReceiptMapper;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    public ReceiptController(ReceiptService receiptService, FiscalService fiscalService, ReceiptMapper receiptMapper, FiscalReceiptMapper fiscalReceiptMapper) {
+        this.receiptService = receiptService;
+        this.fiscalService = fiscalService;
+        this.receiptMapper = receiptMapper;
+        this.fiscalReceiptMapper = fiscalReceiptMapper;
+    }
 
     @PostMapping
     public ResponseEntity<CreateReceiptResponse> createReceipt(@Valid @RequestBody PosReceiptDto posReceiptDto) {
